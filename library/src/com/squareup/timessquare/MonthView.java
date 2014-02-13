@@ -4,6 +4,7 @@ package com.squareup.timessquare;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,11 +25,12 @@ public class MonthView extends LinearLayout {
 
     int firstDayOfWeek = today.getFirstDayOfWeek();
     final CalendarRowView headerRow = (CalendarRowView) view.grid.getChildAt(0);
-    for (int offset = 0; offset < 7; offset++) {
-      today.set(Calendar.DAY_OF_WEEK, firstDayOfWeek + offset);
-      final TextView textView = (TextView) headerRow.getChildAt(offset);
-      textView.setText(weekdayNameFormat.format(today.getTime()));
-    }
+    headerRow.setVisibility(View.GONE);
+//    for (int offset = 0; offset < 7; offset++) {
+//      today.set(Calendar.DAY_OF_WEEK, firstDayOfWeek + offset);
+//      final TextView textView = (TextView) headerRow.getChildAt(offset);
+//      textView.setText(weekdayNameFormat.format(today.getTime()));
+//    }
     today.set(Calendar.DAY_OF_WEEK, originalDayOfWeek);
     view.listener = listener;
     return view;
@@ -41,6 +43,7 @@ public class MonthView extends LinearLayout {
   @Override protected void onFinishInflate() {
     super.onFinishInflate();
     title = (TextView) findViewById(R.id.title);
+    title.setVisibility(View.GONE);
     grid = (CalendarGridView) findViewById(R.id.calendar_grid);
   }
 

@@ -3,6 +3,7 @@ package com.squareup.timessquare;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,8 +41,12 @@ public class CalendarRowView extends ViewGroup implements View.OnClickListener {
         rowHeight = child.getMeasuredHeight();
       }
     }
+
+    int pixelRowHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+              getResources().getDimension(R.dimen.calendar_cell_height), getResources().getDisplayMetrics());
+    rowHeight = Math.max(rowHeight, pixelRowHeight);
     final int widthWithPadding = totalWidth + getPaddingLeft() + getPaddingRight();
-    final int heightWithPadding = rowHeight + getPaddingTop() + getPaddingBottom();
+    final int heightWithPadding = (rowHeight + getPaddingTop() + getPaddingBottom());
     setMeasuredDimension(widthWithPadding, heightWithPadding);
     Logr.d("Row.onMeasure %d ms", System.currentTimeMillis() - start);
   }
